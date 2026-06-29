@@ -1,0 +1,263 @@
+
+body {
+    font-size: 16px;
+}
+
+.header {
+    border-top: 20px solid #285355;
+    padding: 30px 0;
+}
+
+.main-content {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.header-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+
+nav ul {
+    list-style: none;
+    margin: 0;
+    font-family: 'Rubik', sans-serif;
+    color: #515151;
+}
+
+/*
+nav > ul > li {
+    display: inline-block;
+}
+
+nav > ul > li:not(:last-child) {
+    margin-right: 25px;
+}
+
+nav a {
+    color: #515151;
+    text-decoration: none;
+}
+
+nav a:hover {
+    color: #bbbbbb;
+}
+*/
+
+/*
+@media (max-width: 991px) {
+    nav > ul {display: none;}
+    nav > ul > li {display: list-item;}
+}
+*/
+
+
+.featured-content {
+    max-width: 1200px;
+    margin: 0px auto 100px auto;
+    text-align: center;
+    font-family: 'Rubik', sans-serif;
+    color: #515151;
+}
+
+.featured-content h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 34px;
+    color: #515151;
+    margin-bottom: 25px;
+}
+
+.featured-images {
+    display: flex;
+}
+
+.featured-images > div {
+    height: 200px;
+    background: #f7f7f7;
+}
+
+.featured-banner {
+    background-color: #f7f7f7;
+    height: 500px;
+}
+
+.reviews-container {
+    width: 100%;
+    background-image: url('../images/woodgrain_bg.jpg');
+    background-repeat: repeat;
+    padding: 100px 0;
+    margin-bottom: 100px;
+}
+
+#reviews-container {
+    margin-bottom: -138px;
+}
+
+.reviews-container .featured-content, .reviews-container .featured-content h2 {
+    color: #285355;
+}
+
+.review-col {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    width: 100%;
+    height: 100%;
+    background: #ffffff;
+    border-radius: 4px;
+    filter: drop-shadow(1px 1px 3px #77777733);
+}
+
+.review-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: -50px;
+    padding: 0 15%;
+    margin-bottom: 40px;
+}
+
+.review-img {
+    width: 60%;
+    padding-top: 60%;
+    border-radius: 50%;
+    display: flex;
+    background-image: url('../images/placeholder-img.jpg');
+    background-size: cover;
+    background-position: center;
+    filter: drop-shadow(1px 2px 0px #33333333);
+}
+
+
+.review-stars {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin: 30px 0;
+}
+
+.review-stars img {
+    width: 8%;
+    margin: 0 2px;
+}
+
+.review-author {
+    font-weight: bold;
+}
+
+.featured-prod-col {
+    height: 100%;
+}
+
+.featured-prod-content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.featured-prod-img {
+    width: 80%;
+    padding-top: 80%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    margin-bottom: 20px;
+    border: 1px solid #eaeaea;
+}
+
+.featured-prod-content .review-stars {
+    margin: 5px auto 20px auto;
+}
+
+.featured-prod-content .review-stars > img {
+    filter: saturate(0) brightness(1.5);
+    width: 6%;
+}
+
+.review-count {
+    display: inline-block;
+    margin-left: 10px;
+    padding: 1px 12px;
+    background: #eaeaea;
+    border-radius: 25px;
+    font-size: 13px;
+    color: #777;
+}
+
+
+#featured-prod-1 {
+    background-image: url('../images/bears.webp');
+}
+#featured-prod-2 {
+    background-image: url('../images/rustic-letter.webp');
+}
+#featured-prod-3 {
+    background-image: url('../images/maple-fox.webp');
+}
+#featured-prod-4 {
+    background-image: url('../images/bottle-opener.webp');
+}
+
+.featured-prod-title a {
+    text-decoration: none;
+}
+
+.featured-prod-title a h4 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.2rem;
+    color: #515151;
+}
+
+.featured-prod-title a:hover h4 {
+    color: #4ca585;
+}
+
+.featured-prod-price {
+    color: #327f59;
+}
+
+.featured-prod-btn > a {
+    display: inline-block;
+    background: #19322f;
+    color: white;
+    text-decoration: none;
+    padding: 15px 50px;
+    border-radius: 5px;
+    filter: drop-shadow(0px 4px 0px #0c1c1a);
+}
+
+.featured-prod-btn > a:hover {
+    display: inline-block;
+    background: #ff8100;
+    color: white;
+    text-decoration: none;
+    padding: 15px 50px;
+    border-radius: 5px;
+    filter: drop-shadow(0px 4px 0px #ab5600);
+}
+
+.featured-prod-btn > a > i {
+    margin-left: 10px;
+    font-size: 1.25rem;
+}
+
+@media (max-width: 767px) {
+    .header {
+        padding: 30px 20px;
+    }
+
+    .featured-content {
+        padding: 0 25px;
+    }
+
+    #reviews-container .col-md-4 {
+        margin-bottom: 70px;
+    }
+    
+}

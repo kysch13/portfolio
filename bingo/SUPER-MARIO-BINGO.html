@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SUPER MARIO BINGO!</title>
+  <style>
+    @font-face {
+    font-family: marioFont;
+    src: url(./fonts/SuperMario256.ttf);
+    }
+
+    body {
+        background: url(./imgs/Stamp_BG.webp) #c01616;
+        background-blend-mode: multiply;
+        background-repeat: repeat;
+        margin: 0;
+    }
+
+    #outer-wrap {
+        width: 100%;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+    }
+
+    #stage-left {
+        width: 35%;
+        display: flex;
+        justify-content: center;
+    }
+
+    #stage-center {
+        width: 30%;
+    }
+
+    #stage-right {
+        width: 35%;
+    }
+
+    #stage {
+        width: 100%;
+        height: 85vh;
+        text-align: center;
+        display: flex;
+        flex-direction: row;
+    }
+
+    #draw-button {
+        display: inline-block;
+        padding: 20px 60px;
+        margin: 20px auto;
+        border-radius: 10px;
+        text-align: center;
+        font-family: marioFont;
+        font-size: 32px;
+        background-color: #e43434;
+        color: #ffffff;
+        filter: drop-shadow(0px 8px 0px rgb(190, 27, 27));
+        text-shadow: 0px 2px 0px rgb(190, 27, 27);
+        cursor: pointer;
+
+    }
+
+    #draw-button:hover {
+        background: rgb(18, 137, 216);
+        filter: drop-shadow(0px 8px 0px rgb(4, 107, 175)) drop-shadow(0px 0px 10px #1ccaff);
+        text-shadow: 0px 2px 0px rgb(4, 107, 175);
+    }
+
+    #draw-button.disabled, #draw-button.disabled:hover {
+        cursor: default;
+        background-color: #eaeaea;
+        color: #bcbcbc;
+        filter: drop-shadow(0px 8px 0px rgb(226, 226, 226));
+        text-shadow: 0px 2px 0px rgb(153, 153, 153);
+    }
+
+     
+
+
+    #draw-active {
+        display: flex;
+        flex-direction: column;
+        justify-content: end;
+        height: 100%;
+        align-items: center;
+        overflow: hidden;
+    }
+
+    .ball {
+        width: 50%;
+        aspect-ratio: 1/1;
+        border-radius: 100%;
+        background-size: 100% 100%;
+        background-position: 0px 0px;
+        background-image: radial-gradient(100% 120% at 38% 41%, #fafafa 19%, rgb(218, 218, 218) 70%);
+        border: 2px solid #ffffff;
+        font-family: marioFont;
+        font-size: 99px;
+        color: #af1111;
+        text-shadow: 0px 3px 1px #b9b9b9;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        order: 1;
+    }
+
+    #pipe {
+        display: flex;
+        justify-content: center;
+        margin-bottom: -50%;
+        order: 2;
+    }
+    #pipe > img {
+        width: 70%;
+    }
+
+    #draw-history {
+        padding: 50px;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: start;
+        justify-content: flex-start;
+    }
+
+    .draw-history-ball {
+        width: 10%;
+        aspect-ratio: 1/1;
+        border-radius: 100%;
+        background-size: 100% 100%;
+        background-position: 0px 0px;
+        background-image: radial-gradient(100% 120% at 38% 41%, #fafafa 19%, rgb(218, 218, 218) 70%);
+        border: 2px solid #d31d1d;
+        font-family: marioFont;
+        font-size: 23px;
+        color: #af1111;
+        text-shadow: 0px 3px 1px #b9b9b9;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        animation-name: ballhistory;
+        animation-duration: 1.75s;
+        margin: 5px;
+
+    }
+
+    #bottom-bar {
+        background-color: #ffffff;
+        filter: drop-shadow(0px -5px 5px #00000055);
+        height: 15vh;
+        text-align: center;
+    }
+
+    .balldrawn {
+        animation-name: ballpop;
+        animation-duration: 1s;
+        
+    }
+
+    @keyframes ballpop {
+        0% {transform: translateY(80%) scale(0) ; filter: opacity(0);}
+        20% {filter: opacity(0);}
+        100% {transform: opacity(1) translateY(0%) scale(1) ; filter: opacity(1);}
+    }
+
+    @keyframes ballhistory {
+        0% {filter: opacity(0);}
+        80% {filter: opacity(0);}
+        100% {filter: opacity(1);}
+    }
+  </style>
+</head>
+<body>
+    <div id="outer-wrap">
+        <div id="stage">
+            <div id="stage-left">
+                    <img src="./imgs/super-nolan.png">
+                
+            </div>
+            <div id="stage-center">
+                <div id="draw-active">
+                    
+                    <div id="pipe">
+                        <img src="./imgs/pipe.png">
+                    </div>
+                    
+                </div>
+            </div>
+            <div id="stage-right">
+                <div id="draw-history"></div>
+            </div>
+          </div>
+        <div id="bottom-bar">
+            <div id="draw-button">DRAW</div>
+        </div>
+    </div>
+  
+
+  <script type="text/javascript">
+  
+    const bingoBalls = [];
+    const drawnBallsList = document.getElementById("drawn-balls");
+    let ballElement = document.createElement("span");
+    ballElement.classList.add("drawn-ball");
+    for (let i = 1; i < 76; i++) {
+      let letter = "";
+      if (i >= 1 && i < 16) {
+        letter = "M";
+      } else if (i >= 16 && i < 31) {
+        letter = "A";
+      } else if (i >= 31 && i < 46) {
+        letter = "R";
+      } else if (i >= 46 && i < 61) {
+        letter = "I";
+      } else if (i >= 61 && i < 76) {
+        letter = "O";
+      }
+      bingoBalls.push(letter + i);
+    }
+
+    function ballMaker(text){
+        let newBall = document.createElement('div');
+        newBall.innerText = text;
+        newBall.classList.add('ball');
+        newBall.classList.add('balldrawn');
+        return newBall;
+    }
+
+    function ballHistoryMaker(text){
+        let newBallHistory = document.createElement('div');
+        newBallHistory.innerText = text;
+        newBallHistory.classList.add('draw-history-ball');
+        return newBallHistory;
+    }
+
+    function draw() {
+        if (bingoBalls.length > 0) {
+            let oldBall = document.querySelector('.ball.old-ball');
+        console.log(oldBall);
+        if (oldBall != null) {
+            oldBall.remove();
+        }
+        let drawnBallIndex = Math.ceil(Math.random() * bingoBalls.length - 1);
+        let drawnBall = "";
+        drawnBall = bingoBalls.slice(drawnBallIndex, drawnBallIndex + 1);
+        bingoBalls.splice(drawnBallIndex, 1);
+        let tempBallElement = ballElement.cloneNode(true);
+        let newBall = ballMaker(drawnBall);
+        let drawActive = document.getElementById('draw-active');
+        drawActive.appendChild(newBall);
+        newBall.classList.add('old-ball');
+        let drawHistory = document.getElementById('draw-history');
+        let newBallHistory = ballHistoryMaker(drawnBall);
+        drawHistory.appendChild(newBallHistory);
+        } else {
+            document.getElementById("draw-button").disable = true;
+            document.getElementById("draw-button").classList.add('disabled');
+        }
+        
+    }
+
+    document.getElementById("draw-button").addEventListener("click", function () {
+      draw();
+    });
+  </script>
+</body>
+</html>
